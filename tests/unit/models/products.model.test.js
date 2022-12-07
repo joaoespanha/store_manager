@@ -39,7 +39,7 @@ describe('MODEL: testing /products POST route', () => {
     sinon.stub(connection, 'execute').resolves([{ insertId:4 }])
 
     const result = await productsModels.insert('ProdutoX')
-    console.log('OLAAAAAAAAAAAA',result);
+    // console.log('OLAAAAAAAAAAAA',result);
      expect(result).to.be.a('number')
     //expect(result).to.be.equal(4)
   })
