@@ -3,7 +3,11 @@ const sinon = require('sinon');
 
 const connection = require('../../../src/database');
 const productsModels = require('../../../src/models/products.model');
-const { findAllResponse, findByIdRes, findByIdReq } = require('./mocks/products.model.mock')
+const { findAllResponse,
+  findByIdRes,
+  findByIdReq,
+  insertOkReq,
+  insertOkResp } = require('./mocks/products.model.mock')
 
 describe('Unit testing of products models', () => {
   it('testing /products Get route', async () => {
@@ -28,4 +32,16 @@ describe('Unit testing of products models', () => {
   
   afterEach(sinon.restore);
 
+});
+
+describe('MODEL: testing /products POST route', () => {
+  it('tests if it is possible to register a new product', async () => {
+    sinon.stub(connection, 'execute').resolves([{ insertId:4 }])
+
+    const result = await productsModels.insert('ProdutoX')
+    console.log('OLAAAAAAAAAAAA',result);
+     expect(result).to.be.a('number')
+    //expect(result).to.be.equal(4)
+  })
+  afterEach(sinon.restore);
 })

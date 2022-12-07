@@ -24,9 +24,20 @@ const findAllResponse = [
   }
 ]
 
+const insertOkResp = {
+  id: 4,
+  name: "ProdutoX"
+}
+
+const insertOkReq = {
+  name: "ProdutoX"
+}
+
 
 module.exports = {
   findByIdReq,
   findByIdRes,
-  findAllResponse
+  findAllResponse,
+  insertOkReq,
+  insertOkResp
 }

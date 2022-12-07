@@ -1,6 +1,8 @@
 const productServices = require('../services/products.service');
 
 const HTTP_OK_200 = 200;
+const HTTP_OK_201 = 201;
+
 const HTTP_ERROR_404 = 404;
 
 const findAll = async (_req, res) => {
@@ -15,7 +17,15 @@ const findById = async (req, res) => {
   return res.status(HTTP_ERROR_404).json({ message });
 };
 
+const insert = async (req, res) => {
+  const { name } = req.body;
+  const { type, message } = await productServices.insert(name);
+
+  if (!type) return res.status(HTTP_OK_201).json(message);
+};
+
 module.exports = {
   findAll,
   findById,
+  insert,
 };

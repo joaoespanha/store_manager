@@ -31,10 +31,27 @@ const invalidIdReq = {
   id: 456,
 }
 
+const insertOkResp = {
+  type: null,
+  message: {
+    id: 4,
+    name: "ProdutoX"
+  }
+}
+const dbOkInsertResp = { insertId:4 }
+
+const insertOkReq = {
+  name: "ProdutoX"
+}
+
 module.exports = {
   findByIdReq,
   findByIdRes,
   findAllRes,
   invalidIdReq,
-  invalidIdResponse
+  invalidIdResponse,
+  insertOkReq,
+  insertOkResp,
+  dbOkInsertResp
+  
 }
