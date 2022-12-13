@@ -7,7 +7,7 @@ chai.use(sinonChai);
 
 const productServices = require('../../../src/services/products.service');
 const productsController = require('../../../src/controllers/products.controller');
-const serviceMocks = require('./mocks/serviceMocks.mock')
+const serviceMocks = require('./mocks/productService.mock')
 
 describe('CONTROLLER : testing GET /products routes', () => {
   afterEach(sinon.restore)
