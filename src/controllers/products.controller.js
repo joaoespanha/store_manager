@@ -26,8 +26,20 @@ const insert = async (req, res) => {
   if (!type) return res.status(HTTP_OK_201).json(message);
 };
 
+const update = async (req, res) => {
+  const { id } = req.params;
+  const { name } = req.body;
+
+  const { type, message } = await productServices.update(id, name);
+
+  if (type) return res.status(HTTP_ERROR_404).json({ message });
+
+  return res.status(200).json(message);
+};
+
 module.exports = {
   findAll,
   findById,
   insert,
+  update,
 };

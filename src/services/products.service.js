@@ -15,8 +15,19 @@ const insert = async (name) => {
   // console.log(insertId);
   if (insertId) return { type: null, message: { id: insertId, name } };
 };
+
+const update = async (id, name) => {
+  const doIdExists = await productModels.findById(id);
+
+  if (!doIdExists) return { type: 'not_found', message: 'Product not found' };
+  
+  await productModels.update(id, name);
+  
+  return { type: null, message: { id, name } };
+};
 module.exports = {
   findAll,
   findById,
   insert,
+  update,
 };
