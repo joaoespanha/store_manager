@@ -5,7 +5,7 @@ const connection = require('../../../src/database');
 
 const salesModels = require('../../../src/models/sales.model');
 
-const salesMocks = require('./mocks/sales.model.mock')
+const {fullSalesArray} = require('./mocks/sales.model.mock')
 
 
 describe('MODEL: testing /sales POST route', () => {
@@ -35,4 +35,28 @@ describe('MODEL: testing /sales POST route', () => {
     expect(result).to.be.equal(4)
   }) */
   afterEach(sinon.restore);
+});
+
+describe('MODEL: tests sales model GET routes', () => {
+  it('tests if the func getAll returns the sales array', async () => {
+    sinon.stub(connection, 'execute').resolves([fullSalesArray])
+
+    const result = await salesModels.getAll()
+
+    expect(result).to.be.a('array')
+    expect(result[0]).to.be.deep.equal(fullSalesArray[0])
+
+  });
+  it('tests if th findById FUNC RETURNS THE SALES BY ID', async () => {
+    sinon.stub(connection, 'execute').resolves([fullSalesArray]);
+
+    const result = await salesModels.findById(fullSalesArray[0].saleId);
+
+    expect(result).to.be.a('array')
+    expect(result[0]).to.be.deep.equal(fullSalesArray[0])
+    
+  });
+
+    afterEach(sinon.restore);
+
 })

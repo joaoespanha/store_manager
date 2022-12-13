@@ -10,4 +10,8 @@ const router = express.Router();
 router.post('/', validateProductId,
   validateProductQuant, validateProductQuantNum, salesController.insert);
 
+router.get('/', salesController.getAll);
+
+router.get('/:id', salesController.findById);
+
 module.exports = router;
