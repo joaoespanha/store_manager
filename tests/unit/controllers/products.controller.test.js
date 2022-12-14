@@ -80,3 +80,58 @@ describe('CONTROLLER : testing POST /products route', () => {
   })
   
 })
+
+describe('CONTROLLER : testing DELETE /products routes', () => {
+  it('tests if the status code of a successeful delete', async () => {
+    const req = { params: { id: 1 } }
+    const res = {}
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(productServices, 'deleteProduct').resolves({ type: null })
+
+    await productsController.deleteProduct(req, res)
+
+    expect(res.status).to.have.been.calledWith(204);
+  });
+
+  it('tests if it isnt possibel to delete a non existant product', async () => {
+    const req = { params: { id: 456 } }
+    const res = {}
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(productServices, 'deleteProduct').resolves({ type: 'not_found' })
+
+    await productsController.deleteProduct(req, res)
+
+    expect(res.status).to.have.been.calledWith(404);
+    expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
+
+  })
+  
+  afterEach(sinon.restore)
+})
+
+describe('CONTROLLER : testing PUT /products routes', () => {
+  afterEach(sinon.restore)
+  it('tests if it isnt possible to update a product without an id', async () => {
+    sinon.stub(productServices, 'update').resolves({ type: 'not_found', message:  'Product not found' })
+
+    const req = { params:{ id:789 }, body:{name:'batman'} }
+    const res = {}
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    await productsController.update(req, res)
+
+    expect(res.status).to.have.been.calledWith(404);
+    expect(res.json).to.have.been.calledWith({ message: 'Product not found' })
+
+
+  })
+
+})

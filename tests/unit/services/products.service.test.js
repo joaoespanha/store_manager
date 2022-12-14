@@ -56,3 +56,54 @@ describe('SERVICE: Tests /products POST routes', () => {
 
   })
 })
+
+describe('SERVICE: Tests /products DELETE routes', () => {
+  it('tests if when successefully deletinng a product deleteProduct returns an object with type null', async () => {
+    sinon.stub(productsModels, 'deleteProduct').resolves( { type:null } )
+
+    const result = await productServices.deleteProduct(2);
+    // console.log(result);
+    expect(result).to.be.a('object')
+    expect(result.type).to.be.equal(null)
+
+  })
+
+  it('tests if the error message is returned when a product is not found', async () => {
+    sinon.stub(productsModels, 'findById').resolves()
+
+    const result = await productServices.deleteProduct(81);
+    // console.log(result);
+    expect(result).to.be.a('object')
+    expect(result.type).to.be.equal('not_found')
+    expect(result.message).to.be.equal('Product not found')
+
+  })
+
+  afterEach(sinon.restore)
+})
+
+describe('SERVICE: Tests /products PUT routes', () => {
+  it('tests if when successefully update  PRODUCT ', async () => {
+    sinon.stub(productsModels, 'findById').resolves(true)
+
+    const result = await productServices.update(1, 'batman');
+    // console.log(result);
+    expect(result).to.be.a('object')
+    expect(result.type).to.be.equal(null)
+    expect(result.message).to.be.deep.equal({id:1, name:'batman'})
+
+  })
+
+  it('tests if the error message is returned when a product is not found', async () => {
+    sinon.stub(productsModels, 'findById').resolves()
+
+    const result = await productServices.deleteProduct(81);
+    // console.log(result);
+    expect(result).to.be.a('object')
+    expect(result.type).to.be.equal('not_found')
+    expect(result.message).to.be.equal('Product not found')
+
+  })
+
+  afterEach(sinon.restore)
+})

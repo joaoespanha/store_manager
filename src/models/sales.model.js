@@ -45,9 +45,14 @@ FROM
   return result;
 };
 
+const deleteSale = async (id) => {
+  await conn.execute('DELETE FROM StoreManager.sales WHERE id = ?;', [id]);
+};
+
 module.exports = {
   registerSale,
   insertSaleInfo,
   getAll,
   findById,
+  deleteSale,
 };
