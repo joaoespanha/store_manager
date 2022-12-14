@@ -12,6 +12,7 @@ const insert = async (req, res) => {
   
   return res.status(HTTP_OK_201).json(message);
 };
+const validateReq = () => null;
 
 const getAll = async (_req, res) => {
   const { message, type } = await salesServices.getAll();
@@ -39,4 +40,5 @@ module.exports = {
   getAll,
   findById,
   deleteSale,
+  validateReq,
 };

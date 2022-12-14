@@ -45,5 +45,6 @@ const deleteSale = async (id) => {
 
   return { type: null };
 };
+const validation = () => null;
 
-module.exports = { insert, getAll, findById, deleteSale };
+module.exports = { insert, getAll, findById, deleteSale, validation };
