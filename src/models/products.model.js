@@ -30,9 +30,14 @@ const update = async (id, name) => {
    await conn.execute('UPDATE StoreManager.products SET name = ? WHERE id = ? ', [name, id]);
 };
 
+const deleteProduct = async (id) => {
+  await conn.execute('DELETE FROM StoreManager.products WHERE id = ?;', [id]);
+};
+
 module.exports = {
   findAll,
   findById,
   insert,
   update,
+  deleteProduct,
 };
