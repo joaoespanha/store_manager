@@ -107,3 +107,17 @@ describe('SERVICE: Tests /products PUT routes', () => {
 
   afterEach(sinon.restore)
 })
+describe('SERVICE: Tests /products/search GET routes', () => {
+  it('tests if it returns a object with type null and the filtred products  ', async () => {
+    sinon.stub(productsModels, 'findByQuery').resolves(findAllRes.message)
+
+    const result = await productServices.findByQuery('');
+    // console.log(result);
+    expect(result).to.be.a('object')
+    expect(result.type).to.be.equal(null)
+    expect(result.message).to.be.deep.equal(findAllRes.message)
+
+  })
+
+  afterEach(sinon.restore)
+})
