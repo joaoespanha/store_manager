@@ -133,5 +133,38 @@ describe('CONTROLLER : testing PUT /products routes', () => {
 
 
   })
+  it('tests if it is possible to update a product with an existant id', async () => {
+    sinon.stub(productServices, 'update').resolves({ type: null, message: { id:2, name:'wonder' } })
+
+    const req = { params: { id: 2 }, body: { name: 'wonder' } }
+    const res = {}
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    await productsController.update(req, res)
+
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith({ id: 2, name: 'wonder' })
+
+
+  })
+})
+describe('CONTROLLER : testing GET /products/search route', () => {
+  it('testing the response if the the func returns all products when there is no match in name', async () => {
+
+    const req = { query: { q: 'laskdjfgh' } }
+    const res = {}
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(productServices, 'findByQuery').resolves(serviceMocks.findAllOkResp)
+
+    await productsController.findByQuery(req, res)
+
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith(serviceMocks.findAllOkResp.message)
+  })
 
 })

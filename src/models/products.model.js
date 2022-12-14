@@ -34,10 +34,19 @@ const deleteProduct = async (id) => {
   await conn.execute('DELETE FROM StoreManager.products WHERE id = ?;', [id]);
 };
 
+const findByQuery = async (name) => {
+  const allProducts = await findAll();
+
+  const filterName = allProducts.filter((prod) => prod.name.includes(name));
+  if (filterName.length === 0) return allProducts;
+  return filterName;
+};
+
 module.exports = {
   findAll,
   findById,
   insert,
   update,
   deleteProduct,
+  findByQuery,
 };

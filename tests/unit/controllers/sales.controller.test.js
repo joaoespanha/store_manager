@@ -42,3 +42,36 @@ describe('CONTROLLER : tests GET /sales routes', () => {
 
   })
 })
+
+describe('CONTROLLER : tests DElere /sales routes', () => {
+  it('tests if THE OK RESPONSE is given by deleteSale func', async () => {
+    sinon.stub(salesServices, 'deleteSale').resolves({ type: null })
+
+    const req = {params: { id:2 } }
+    const res = {}
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    await salesContollers.deleteSale(req, res)
+
+    expect(res.status).to.have.been.calledWith(204);
+
+  });
+  it('tests if th message error is returned when searching an inexistent saleID', async () => {
+    sinon.stub(salesServices, 'deleteSale').resolves({ type: 'not_found', message: 'Sale not found' })
+
+    const req = { params: { id: 45 } }
+    const res = {}
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    await salesContollers.deleteSale(req, res);
+
+    expect(res.status).to.have.been.calledWith(404)
+    expect(res.json).to.have.been.calledWith({ message: mocks.idNotFoundResp.message })
+
+  })
+  afterEach(sinon.restore)
+})

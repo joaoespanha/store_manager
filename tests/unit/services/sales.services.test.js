@@ -28,3 +28,25 @@ describe('SERVICES: tests Get routes on sales services ', () => {
   afterEach(sinon.restore)
 });
 
+describe('SERVICES: tests DELETE routes on sales services ', () => {
+  it('tests if the get all function returns an object with type null when deleting is successeful', async () => {
+    sinon.stub(salesModels, 'findById').resolves(true)
+
+    const result = await salesServices.deleteSale(1);
+
+    expect(result).to.be.a('object')
+    expect(result.type).to.be.null
+  });
+
+  it('tests if the an error message is returned whn searching for a non existant sale', async () => {
+    sinon.stub(salesModels, 'findById').resolves([])
+
+    const result = await salesServices.deleteSale(88);
+
+    expect(result).to.be.a('object')
+    expect(result.type).to.be.equal('not_found')
+    expect(result.message).to.be.deep.equal('Sale not found')
+  });
+
+  afterEach(sinon.restore)
+});

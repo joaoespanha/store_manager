@@ -35,10 +35,16 @@ const deleteProduct = async (id) => {
 
   return { type: null };
 };
+const findByQuery = async (name) => {
+  const productsByName = await productModels.findByQuery(name);
+
+  return { type: null, message: productsByName };
+};
 module.exports = {
   findAll,
   findById,
   insert,
   update,
   deleteProduct,
+  findByQuery,
 };
