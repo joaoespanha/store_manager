@@ -2,7 +2,9 @@ const productModels = require('../models/products.model');
 
 const findAll = async () => {
   const products = await productModels.findAll();
-  return { type: null, message: products };
+  return { type: null, message: products, 
+  
+  };
 };
 
 const findById = async (id) => {
@@ -25,7 +27,6 @@ const update = async (id, name) => {
   
   return { type: null, message: { id, name } };
 };
-
 const deleteProduct = async (id) => {
   const doIdExists = await productModels.findById(id);
 
